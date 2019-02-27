@@ -4,6 +4,7 @@ from selenium.webdriver import DesiredCapabilities
 from cookiespool.config import *
 from cookiespool.db import RedisClient
 from login.weibo.cookies import WeiboCookies
+from login.videorank.cookies import VideoRankCookies
 
 
 class CookiesGenerator(object):
@@ -91,8 +92,9 @@ class CookiesGenerator(object):
         """
         try:
             print('Closing Browser')
-            self.browser.close()
-            del self.browser
+            if (hasattr(self, 'browser')):
+                self.browser.close()
+                del self.browser
         except TypeError:
             print('Browser not opened')
 
@@ -115,6 +117,26 @@ class WeiboCookiesGenerator(CookiesGenerator):
         :return: 用户名和Cookies
         """
         return WeiboCookies(username, password, self.browser).main()
+
+
+class VideoRankCookiesGenerator(CookiesGenerator):
+    def __init__(self, website='videorank'):
+        """
+        初始化操作
+        :param website: 站点名称
+        :param browser: 使用的浏览器
+        """
+        CookiesGenerator.__init__(self, website)
+        self.website = website
+
+    def new_cookies(self, username, password):
+        """
+        生成Cookies
+        :param username: 用户名
+        :param password: 密码
+        :return: 用户名和Cookies
+        """
+        return VideoRankCookies(username, password).main()
 
 
 if __name__ == '__main__':
