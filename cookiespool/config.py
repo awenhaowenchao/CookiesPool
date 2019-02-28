@@ -12,19 +12,22 @@ BROWSER_TYPE = 'Chrome'
 
 # 产生器类，如扩展其他站点，请在此配置
 GENERATOR_MAP = {
-    #'weibo': 'WeiboCookiesGenerator',
-    'videorank': 'VideoRankCookiesGenerator'
+    'weibo': 'WeiboCookiesGenerator',
+    'videorank': 'VideoRankCookiesGenerator',
+    'wewen': 'WewenCookiesGenerator'
 }
 
 # 测试类，如扩展其他站点，请在此配置
 TESTER_MAP = {
     'weibo': 'WeiboValidTester',
-    'videorank': 'VideoRankvalidtester'
+    'videorank': 'VideoRankValidTester',
+    'wewen': 'WewenValidTester'
 }
 
 TEST_URL_MAP = {
     'weibo': 'https://m.weibo.cn/',
-    'videorank': 'https://videorank.cn'
+    'videorank': 'https://videorank.cn',
+    'wewen': 'http://wewen.io'
 }
 
 # 产生器和验证器循环周期

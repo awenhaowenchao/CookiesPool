@@ -94,4 +94,4 @@ class VideoRankCookies():
 
 
 if __name__ == '__main__':
-    VideoRankCookies('18601043637', '123456').main();
+    VideoRankCookies('', '').main();

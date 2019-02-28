@@ -46,7 +46,7 @@ class WeiboValidTester(ValidTester):
             print('发生异常', e.args)
 
 
-class VideoRankvalidtester(ValidTester):
+class VideoRankValidTester(ValidTester):
     def __init__(self, website='videorank'):
         ValidTester.__init__(self, website)
 
@@ -72,5 +72,31 @@ class VideoRankvalidtester(ValidTester):
         except ConnectionError as e:
             print('发生异常', e.args)
 
+class WewenValidTester(ValidTester):
+    def __init__(self, website='wewen'):
+        ValidTester.__init__(self, website)
+
+    def test(self, username, cookies):
+        print('正在测试Cookies', '用户名', username)
+        try:
+            cookies = json.loads(cookies)
+        except TypeError:
+            print('Cookies不合法', username)
+            self.cookies_db.delete(username)
+            print('删除Cookies', username)
+            return
+        try:
+            test_url = TEST_URL_MAP[self.website]
+            response = requests.get(test_url, cookies=cookies, timeout=5)
+            if (response.text.find('h_avatar') > -1):
+                print('Cookies有效', username)
+            else:
+                print(response.status_code, response.headers)
+                print('Cookies失效', username)
+                self.cookies_db.delete(username)
+                print('删除Cookies', username)
+        except ConnectionError as e:
+            print('发生异常', e.args)
+
 if __name__ == '__main__':
-    VideoRankvalidtester().run()
+    WewenValidTester().run()
