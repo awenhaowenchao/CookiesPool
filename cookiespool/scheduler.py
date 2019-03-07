@@ -39,7 +39,7 @@ class Scheduler(object):
     @staticmethod
     def api():
         print('API接口开始运行')
-        app.run(host=API_HOST, port=API_PORT)
+        app.run(host=API_HOST, port=API_PORT, debug=API_DEBUG)
     
     def run(self):
         if API_PROCESS:

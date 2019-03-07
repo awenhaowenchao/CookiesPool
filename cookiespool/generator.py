@@ -34,8 +34,13 @@ class CookiesGenerator(object):
             self.browser = webdriver.PhantomJS(desired_capabilities=caps)
             self.browser.set_window_size(1400, 500)
         elif BROWSER_TYPE == 'Chrome':
-            self.browser = webdriver.Chrome()
-    
+            chrome_options = webdriver.ChromeOptions()
+            if HEADLESS:
+                chrome_options.add_argument('--headless')
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument('--disable-dev-shm-usage')
+            self.browser = webdriver.Chrome(chrome_options = chrome_options)
+
     def new_cookies(self, username, password):
         """
         新生成Cookies，子类需要重写

@@ -39,8 +39,8 @@ class VideoRankCookies():
 
         #通过cookie获取验证码
         response = requests.get('https://videorank.cn/captcha/default', headers= headers, cookies = cookies)
-        print(response.content)
-        file_name = '/data/image/' + str(uuid.uuid1()) + '.png'
+        # print(response.content)
+        file_name = '/app/image/' + str(uuid.uuid1()) + '.png'
         with open(file_name, 'wb') as f:
             f.write(response.content)
         #解析验证码
@@ -49,8 +49,8 @@ class VideoRankCookies():
         #登录
         response = requests.post(
             'https://videorank.cn/login?_token=' + token + '&mobile=' + self.mobile + '&password=' + self.password + '&captcha=' + captcha.value, headers= headers, cookies=response.cookies, verify=False)
-        print(response.cookies)
-        print(response.text)
+        # print(response.cookies)
+        # print(response.text)
         if (response.text.find(self.mobile) > -1):
             self.is_login = True
             self.cookies = response.cookies._cookies.get('videorank.cn').get('/')
@@ -66,7 +66,7 @@ class VideoRankCookies():
         api = FateadmApi(app_id, app_key, pd_id, pd_key)
         rsp = api.PredictFromFile(pred_type, file_name)
         if (rsp != None and rsp.ret_code == 0):
-            print(rsp.pred_rsp)
+            # print(rsp.pred_rsp)
             return rsp.pred_rsp
 
     def main(self):
